@@ -7,7 +7,7 @@
  - 设计的栈类型可以使用现成的栈结构
 
 ```
-static class GetMinStack1 {
+    static class GetMinStack1 {
         private Stack<Integer> dataStack,minStack;
 
         public GetMinStack1() {

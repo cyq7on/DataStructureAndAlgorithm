@@ -1,0 +1,91 @@
+#猫狗队列
+##题目：
+###宠物、猫和狗的类如下：
+```
+	public static class Pet {
+        private String type;
+
+        public Pet(String type) {
+            this.type = type;
+        }
+
+        public String getPetType() {
+            return this.type;
+        }
+    }
+
+    public static class Dog extends Pet {
+        public Dog() {
+            super("dog");
+        }
+    }
+
+    public static class Cat extends Pet {
+        public Cat() {
+            super("cat");
+        }
+    }
+```
+实现一种猫狗队列，可以实现一些常用方法。
+```
+	private Queue<PetQueue> catQueue;
+    private Queue<PetQueue> dogQueue;
+
+    public CatDogQueue() {
+        this.catQueue = new LinkedList<>();
+        this.dogQueue = new LinkedList<>();
+    }
+
+    public void add(Pet pet) {
+        if (pet.getPetType().equals("cat")) {
+            catQueue.add(new PetQueue(pet));
+        } else {
+            dogQueue.add(new PetQueue(pet));
+        }
+    }
+
+    public Pet pollAll() {
+        if (!catQueue.isEmpty() && !dogQueue.isEmpty()) {
+            if (catQueue.peek().getTimestap() < dogQueue.peek().getTimestap()) {
+                return catQueue.poll().getPet();
+            } else {
+                return dogQueue.poll().getPet();
+            }
+        } else if (catQueue.isEmpty()) {
+            return dogQueue.poll().getPet();
+        } else if (dogQueue.isEmpty()) {
+            return catQueue.poll().getPet();
+        } else {
+            return null;
+        }
+    }
+
+    public Dog pollDog() {
+        if (dogQueue.isEmpty()) {
+            return null;
+        } else {
+            return (Dog) dogQueue.poll().getPet();
+        }
+    }
+
+    public Cat pollCat() {
+        if (catQueue.isEmpty()) {
+            return null;
+        } else {
+            return (Cat) catQueue.poll().getPet();
+        }
+    }
+
+    public boolean isEmpty() {
+        return catQueue.isEmpty() && dogQueue.isEmpty();
+    }
+
+    public boolean isCatEmpty() {
+        return catQueue.isEmpty();
+    }
+
+    public boolean isDogEmpty() {
+        return dogQueue.isEmpty();
+    }
+```
+
