@@ -14,6 +14,7 @@ public class HanoiTower {
     }
 
     private Action action = Action.No;
+
     private enum Action {
         No, LtoM, MtoL, MtoR, RtoM
     }
