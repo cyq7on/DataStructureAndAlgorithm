@@ -19,7 +19,7 @@ public class RemoveDuplicatesFromSortedListII {
         return deleteDuplicates(head, Integer.MAX_VALUE);
     }
 
-    public ListNode deleteDuplicates(ListNode head,int lastVal) {
+    private ListNode deleteDuplicates(ListNode head,int lastVal) {
         if (head == null) {
             return null;
         }
