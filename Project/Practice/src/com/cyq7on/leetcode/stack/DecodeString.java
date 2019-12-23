@@ -73,11 +73,12 @@ public class DecodeString {
     }
 
     public static void main(String[] args) {
-        System.out.println(new DecodeString().decodeString("3[z]2[2[y]pq4[2[jk]e1[f]]]ef"));
-        System.out.println(new DecodeString().decodeString("3[a]2[b4[F]c]"));
-        System.out.println(new DecodeString().decodeString("100[leetcode]"));
-        System.out.println(new DecodeString().decodeString("3[a]2[bc]"));
-        System.out.println(new DecodeString().decodeString("3[a2[c]]"));
-        System.out.println(new DecodeString().decodeString("2[abc]3[cd]ef"));
+        DecodeString decodeString = new DecodeString();
+        System.out.println(decodeString.decodeString("3[z]2[2[y]pq4[2[jk]e1[f]]]ef"));
+        System.out.println(decodeString.decodeString("3[a]2[b4[F]c]"));
+        System.out.println(decodeString.decodeString("100[leetcode]"));
+        System.out.println(decodeString.decodeString("3[a]2[bc]"));
+        System.out.println(decodeString.decodeString("3[a2[c]]"));
+        System.out.println(decodeString.decodeString("2[abc]3[cd]ef"));
     }
 }
