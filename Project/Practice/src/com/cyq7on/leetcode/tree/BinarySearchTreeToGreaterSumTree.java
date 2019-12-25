@@ -13,6 +13,21 @@ package com.cyq7on.leetcode.tree;
  **/
 public class BinarySearchTreeToGreaterSumTree {
     public TreeNode bstToGst(TreeNode root) {
+        bstToGst(root, 0);
+        return root;
+    }
+    //最简单的方法，右子树->根->左子树的顺序做加法即可
+    private int bstToGst(TreeNode root, int sum) {
+        if (root == null) {
+            return sum;
+        }
+        sum = bstToGst(root.right,sum);
+        sum += root.val;
+        root.val = sum;
+        return bstToGst(root.left,sum);
+    }
+
+    public TreeNode bstToGst2(TreeNode root) {
         int sum = preOrderSum(root);
         inOrder(root, sum);
         return root;
