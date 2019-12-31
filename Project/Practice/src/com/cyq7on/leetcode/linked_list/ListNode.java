@@ -9,6 +9,9 @@ public class ListNode {
     }
 
     public ListNode(int[] arr) {
+        if (arr.length == 0) {
+            return;
+        }
         val = arr[0];
         ListNode cur = this;
         for (int i = 1; i < arr.length; i++) {
