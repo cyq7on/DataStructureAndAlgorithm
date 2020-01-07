@@ -35,10 +35,34 @@ public class BinaryTreeCameras {
     private int count = 0;
 
     public int minCameraCover(TreeNode root) {
-        return minCameraCover(root, 0);
+        int[] dp = dp(root);
+        int min = Math.min(dp[0], dp[1]);
+        return Math.min(min, dp[2]);
     }
 
-    private int minCameraCover(TreeNode root,int parentVal) {
+    /**
+     * @param root
+     * @return arr[0]表示root需要安装摄像头需要的最少数量，
+     * arr[1]表示root没安装但是被监控，arr[2]表示没安装没监控
+     */
+    private int[] dp(TreeNode root) {
+        if (root == null) {
+            return new int[]{0, 0, 0};
+        }
+
+        int[] left = dp(root.left);
+        int[] right = dp(root.right);
+        //父亲要安装，儿子被监控
+        int count0 = 1 + left[1] + right[1];
+        //父亲不安装被监控，儿子可以安装或者不安装
+        int count1 = Math.min(left[0] + right[0],left[2] + right[2]);
+        //父亲不安装没被监控，儿子必须安装
+        int count2 = left[0] + right[0];
+
+        return new int[]{count0, count1,count2};
+    }
+
+    private int minCameraCover(TreeNode root, int parentVal) {
         if (root == null) {
             return 0;
         }
@@ -50,7 +74,7 @@ public class BinaryTreeCameras {
         if (root.val == 0) {
             if (root.left != null && root.right != null) {
                 root.val = 1;
-                return 1 + minCameraCover(root.left,root.val) + minCameraCover(root.right,root.val);
+                return 1 + minCameraCover(root.left, root.val) + minCameraCover(root.right, root.val);
             }
             if (root.left != null) {
                 root.left.val = 1;
@@ -59,12 +83,11 @@ public class BinaryTreeCameras {
             if (root.right != null) {
                 root.right.val = 1;
             }
-            return minCameraCover(root.left,root.val) + minCameraCover(root.right,root.val);
+            return minCameraCover(root.left, root.val) + minCameraCover(root.right, root.val);
         }
 
-        return 1 + minCameraCover(root.left,root.val) + minCameraCover(root.right,root.val);
+        return 1 + minCameraCover(root.left, root.val) + minCameraCover(root.right, root.val);
     }
-
 
 
     private TreeNode minCamera(TreeNode root) {
@@ -74,19 +97,19 @@ public class BinaryTreeCameras {
         if (root.left == null && root.right == null) {
             if (root.val == 0) {
                 count++;
-                root.val ++;
+                root.val++;
             }
             return root;
         }
         if (root.val == 0) {
             if (root.left != null) {
                 root.left.val = 1;
-                count ++ ;
+                count++;
             }
             if (root.right != null) {
                 root.right.val = 1;
                 if (count == 0) {
-                    count ++;
+                    count++;
                 }
             }
         }
@@ -108,9 +131,9 @@ public class BinaryTreeCameras {
         if (child == null) {
             if (parent.val == 0) {
                 parent.val = 1;
-                count ++;
+                count++;
             } else if (parent.val == 1) {
-                count ++;
+                count++;
             }
             return parent;
         }
@@ -121,7 +144,7 @@ public class BinaryTreeCameras {
         } else if (parent.val == 0) {
             parent.val = 1;
             childVal = 2;
-            count ++;
+            count++;
         }
         child.val = childVal;
         int nextVal = 0;
@@ -158,7 +181,7 @@ public class BinaryTreeCameras {
 //        TreeNode root = new TreeNode(0);
 
         TreeNode root = new TreeNode(0);
-        root.left = new TreeNode(0);
+//        root.left = new TreeNode(0);
         System.out.println(binaryTreeCameras.minCameraCover(root));
     }
 }
