@@ -2,6 +2,7 @@ package com.cyq7on.leetcode.dp;
 
 import com.cyq7on.leetcode.tree.TreeNode;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +40,9 @@ import java.util.Map;
  **/
 public class HouseRobberIII {
     public int rob(TreeNode root) {
-        Map<Object, Object> map = new HashMap<>();
-        preOder(root, 0, new HashMap<>());
-        System.out.println(map);
-        return 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        preOder(root, 0, map);
+        return robMax(map);
     }
 
     private void preOder(TreeNode root, int level, Map<Integer, Integer> map) {
@@ -53,9 +53,43 @@ public class HouseRobberIII {
         if (integer == null) {
             integer = 0;
         }
-        integer++;
+        integer += root.val;
         map.put(level, integer);
         preOder(root.left, level + 1, map);
         preOder(root.right, level + 1, map);
+    }
+
+    // from HouseRobber
+    private int robMax(Map<Integer,Integer> nums) {
+        if (nums.size() == 0) {
+            return 0;
+        }
+        if (nums.size() == 1) {
+            return nums.get(0);
+        }
+        int[] dp = new int[nums.size()];
+        dp[0] = nums.get(0);
+        dp[1] = Math.max(nums.get(0), nums.get(1));
+        for (int i = 2; i < nums.size(); i++) {
+            dp[i] = Math.max(dp[i - 2] + nums.get(i), dp[i - 1]);
+        }
+        return dp[dp.length - 1];
+    }
+
+    public static void main(String[] args) {
+       /* TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(2);
+        root.left.right = new TreeNode(3);
+
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(1);*/
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(2);
+        root.left.right = new TreeNode(3);
+
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(1);
+        HouseRobberIII houseRobberIII = new HouseRobberIII();
+        System.out.println(houseRobberIII.rob(root));
     }
 }
