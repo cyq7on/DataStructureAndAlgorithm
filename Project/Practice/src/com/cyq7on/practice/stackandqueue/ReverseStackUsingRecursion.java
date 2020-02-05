@@ -1,4 +1,4 @@
-package com.cyq7on.stackandqueue;
+package com.cyq7on.practice.stackandqueue;
 
 import java.util.Stack;
 

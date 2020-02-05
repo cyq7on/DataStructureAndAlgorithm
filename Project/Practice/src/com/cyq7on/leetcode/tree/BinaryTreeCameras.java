@@ -35,9 +35,28 @@ public class BinaryTreeCameras {
     private int count = 0;
 
     public int minCameraCover(TreeNode root) {
-        int[] dp = dp(root);
+        /*int[] dp = dp(root);
         int min = Math.min(dp[0], dp[1]);
-        return Math.min(min, dp[2]);
+        return Math.min(min, dp[2]);*/
+        if (root == null) {
+            return 0;
+        }
+
+        int install = 1;
+        if (root.left != null){
+            install += minCameraCover(root.left.left) + minCameraCover(root.left.right);
+        }
+
+        if (root.right != null) {
+            install += minCameraCover(root.right.left) + minCameraCover(root.right.right);
+        }
+
+        if (install == 1) {
+            return 1;
+        }
+
+        int notInstall = minCameraCover(root.left) + minCameraCover(root.right);
+        return Math.min(install, notInstall);
     }
 
     /**
@@ -47,13 +66,15 @@ public class BinaryTreeCameras {
      */
     private int[] dp(TreeNode root) {
         if (root == null) {
-            return new int[]{0, 0, 0};
+            return new int[]{0, 0};
         }
 
         int[] left = dp(root.left);
         int[] right = dp(root.right);
         //父亲要安装，儿子被监控
-        int count0 = 1 + left[1] + right[1];
+        int count0 = 1;
+        if (root.left != null) {
+        }
         //父亲不安装被监控，儿子可以安装或者不安装
         int count1 = Math.min(left[0] + right[0],left[2] + right[2]);
         //父亲不安装没被监控，儿子必须安装
