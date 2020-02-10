@@ -16,8 +16,9 @@ public class SortTestHelper {
 
         for (int i = 0; i < n; i++)
             arr[i] = (int) (Math.random() * (rangeR - rangeL + 1) + rangeL);
-
-        System.out.println(Arrays.toString(arr));
+        if (n < 30) {
+            System.out.println(Arrays.toString(arr));
+        }
         return arr;
     }
 
@@ -51,7 +52,9 @@ public class SortTestHelper {
 
             assert isSorted( arr );
             System.out.println( sortClass.getSimpleName()+ " : " + (endTime-startTime) + "ms" );
-            System.out.println(Arrays.toString(arr));
+            if (arr.length < 30) {
+                System.out.println(Arrays.toString(arr));
+            }
         }
         catch(Exception e){
             e.printStackTrace();

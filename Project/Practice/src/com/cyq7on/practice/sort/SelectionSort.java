@@ -16,7 +16,6 @@ public class SelectionSort extends Sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = SortTestHelper.generateRandomArray(10, 1, 10);
-        SortTestHelper.testSort(SelectionSort.class.getName(),arr);
+        test(SelectionSort.class.getName());
     }
 }
