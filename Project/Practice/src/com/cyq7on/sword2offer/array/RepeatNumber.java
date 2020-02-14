@@ -1,4 +1,4 @@
-package com.cyq7on.sword2offer;
+package com.cyq7on.sword2offer.array;
 
 import java.util.HashMap;
 import java.util.Map;

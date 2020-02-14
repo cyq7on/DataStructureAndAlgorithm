@@ -1,4 +1,4 @@
-package com.cyq7on.leetcode.linked_list;
+package com.cyq7on.leetcode.linklist;
 
 
 /**

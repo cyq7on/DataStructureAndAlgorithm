@@ -1,4 +1,4 @@
-package com.cyq7on.sword2offer;
+package com.cyq7on.sword2offer.array;
 
 import com.cyq7on.practice.array.BinarySearch;
 
