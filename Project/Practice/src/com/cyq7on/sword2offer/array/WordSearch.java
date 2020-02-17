@@ -40,9 +40,14 @@ public class WordSearch {
             return false;
         }
 
-        visit = new int[board.length][board[0].length];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+        int row = board.length;
+        int col = board[0].length;
+        if (row * col < word.length()) {
+            return false;
+        }
+        visit = new int[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 if (dfs(board, i, j, word, 0)) {
                     return true;
                 }
