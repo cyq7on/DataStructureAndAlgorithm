@@ -33,14 +33,22 @@ public class Pow {
             if (x == 0) {
                 throw new RuntimeException("不合法的输入");
             }
-            long pow = n;
-            double v = unsignedPow(x, -pow);
+            int abs = Math.abs(n);
+            //处理边界情况
+            if (abs < 0) {
+                if (x > 0) {
+                    abs = Math.abs(n + 1);
+                }else {
+                    abs = Math.abs(n + 2);
+                }
+            }
+            double v = unsignedPow(x, abs);
             return 1.0 / v;
         }
         return unsignedPow(x, n);
     }
 
-    private double unsignedPow(double x, long n) {
+    private double unsignedPow(double x, int n) {
         if (n == 0) {
             return 1;
         }
@@ -63,5 +71,6 @@ public class Pow {
         System.out.println(pow.myPow(2.1, 3));
         System.out.println(pow.myPow(2, -2));*/
         System.out.println(pow.myPow(2.00000, -2147483648));
+        System.out.println(pow.myPow(-1.00000, -2147483648));
     }
 }
