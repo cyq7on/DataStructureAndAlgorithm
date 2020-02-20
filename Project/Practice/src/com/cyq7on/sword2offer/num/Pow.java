@@ -1,4 +1,4 @@
-package com.cyq7on.sword2offer;
+package com.cyq7on.sword2offer.num;
 
 /**
  * @author cyq7on
