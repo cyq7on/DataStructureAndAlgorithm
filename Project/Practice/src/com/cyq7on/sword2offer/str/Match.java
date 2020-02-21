@@ -49,20 +49,30 @@ package com.cyq7on.sword2offer.str;
  **/
 public class Match {
 
+    //加入备忘录后，LeetCode测试时间从2000ms降到了2ms
+    //0为初始值，1为false，2为true
+    private int[][] memo;
+
     public boolean isMatch(String s, String p) {
         if (s == null || p == null) {
             return false;
         }
+        memo = new int[s.length() + 1][p.length() + 1];
         return match(s, 0, p, 0);
     }
 
     private boolean match(String s, int index1, String p, int index2) {
+        if (memo[index1][index2] != 0) {
+            return memo[index1][index2] != 1;
+        }
         if (index1 == s.length() && index2 == p.length()) {
+            memo[index1][index2] = 2;
             return true;
         }
 
         //模式已经到最后
         if (index1 != s.length() && index2 == p.length()) {
+            memo[index1][index2] = 1;
             return false;
         }
         boolean equal = index1 < s.length() && (s.charAt(index1) == p.charAt(index2) || p.charAt(index2) == '.');
@@ -73,19 +83,26 @@ public class Match {
                 //2、s跳到下一个字符，模式保持不动继续匹配，因为*可以匹配多位
                 //3、s保持，模式跳过下一个*号继续匹配。这种情况从贪心角度来看是不明智的，
                 //即放弃了此次相等
-                return match(s, index1 + 1, p, index2 + 2)
+                boolean match = match(s, index1 + 1, p, index2 + 2)
                         || match(s, index1 + 1, p, index2)
                         || match(s, index1, p, index2 + 2);
+                memo[index1][index2] = match ? 2 : 1;
+                return match;
             } else {
                 //当前字符不相等，下一个*号就没有作用了，模式跳过下一个*号继续匹配
+                boolean match = match(s, index1, p, index2 + 2);
+                memo[index1][index2] = match ? 2 : 1;
                 return match(s, index1, p, index2 + 2);
             }
         }
 
         if (equal) {
-            return match(s, index1 + 1, p, index2 + 1);
+            boolean match = match(s, index1 + 1, p, index2 + 1);
+            memo[index1][index2] = match ? 2 : 1;
+            return match;
         }
 
+        memo[index1][index2] = 1;
         return false;
     }
 
