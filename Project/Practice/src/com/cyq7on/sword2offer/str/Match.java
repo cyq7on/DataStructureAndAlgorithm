@@ -92,7 +92,7 @@ public class Match {
                 //当前字符不相等，下一个*号就没有作用了，模式跳过下一个*号继续匹配
                 boolean match = match(s, index1, p, index2 + 2);
                 memo[index1][index2] = match ? 2 : 1;
-                return match(s, index1, p, index2 + 2);
+                return match;
             }
         }
 
