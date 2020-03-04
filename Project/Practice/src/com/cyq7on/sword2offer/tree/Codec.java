@@ -64,7 +64,7 @@ public class Codec {
         if (list.isEmpty()) {
             return null;
         }
-        String val = list.remove(0);
+        String val = list.removeFirst();
         if (val.equals("null")) {
             return null;
         }

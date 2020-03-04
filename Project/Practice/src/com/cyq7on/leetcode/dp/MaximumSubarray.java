@@ -17,6 +17,23 @@ package com.cyq7on.leetcode.dp;
  **/
 public class MaximumSubarray {
     public int maxSubArray(int[] nums) {
+        int sum = nums[0],max = nums[0];
+        for(int i = 1;i < nums.length;i++) {
+            //和小于0则丢弃之前的sum
+            if(sum <= 0) {
+                sum = nums[i];
+            }else {
+                sum += nums[i];
+            }
+            //记录最大值
+            if(sum > max) {
+                max = sum;
+            }
+        }
+        return max;
+    }
+
+    public int maxSubArray1(int[] nums) {
         int maxSoFar = nums[0], maxEndingHere = nums[0];
         for (int i = 1; i < nums.length; ++i) {
             maxEndingHere = Math.max(maxEndingHere + nums[i], nums[i]);
