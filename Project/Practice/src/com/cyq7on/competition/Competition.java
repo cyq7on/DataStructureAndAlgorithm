@@ -1,87 +1,48 @@
 package com.cyq7on.competition;
 
-import com.cyq7on.leetcode.linklist.ListNode;
-import com.cyq7on.leetcode.tree.TreeNode;
-
-import java.util.*;
 
 public class Competition {
-    public int[] smallerNumbersThanCurrent(int[] nums) {
-        int length = nums.length;
-        int[] res = new int[length];
-        int[] copy = Arrays.copyOf(nums, length);
-        Arrays.sort(copy);
-        for (int i = 0; i < length; i++) {
-            int num = nums[i];
-            int j = 0;
-            while (num > copy[j]) {
-                j++;
+
+    public String generateTheString(int n) {
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n - 1; i++) {
+            sb.append("a");
+        }
+        //偶数
+        if (n % 2 != 1) {
+            sb.append("b");
+        } else {
+            sb.append("a");
+        }
+        return sb.toString();
+    }
+
+    public int numTimesAllBlue(int[] light) {
+        int[] status = new int[light.length];
+        int[] num = new int[light.length + 1];
+        int notLight = 0;
+//        num[0] = 1;
+        int count = 0;
+//        Arrays.fill(status, 0);
+        for (int i = 0; i < light.length; i++) {
+            int k = light[i];
+//            status[k] = 1;
+            /*if (k > 0) {
+                num[k] = num[k - 1] + 1;
+            }*/
+            num[k] = num[k - 1] + 1;
+            if (num[k] == i + 1) {
+                count++;
+            } else {
+                notLight++;
             }
-            res[i] = j;
         }
-        return res;
-    }
-
-//    public String rankTeams(String[] votes) {
-//        Map<Character,Integer> map = new HashMap<>();
-//        String vote = votes[0];
-//        for (int i = 0; i < vote.length(); i++) {
-//            map.put(vote.charAt(i), i);
-//        }
-//
-//        for (int i = 1; i < votes.length; i++) {
-//            for (int j = 0; j < votes[i].length(); j++) {
-//                Character character = votes[i].charAt(j);
-//                Integer integer = map.get(character);
-//                map.put(character, integer + j);
-//            }
-//        }
-//
-//        Collection<Integer> values = map.values();
-//        List<Character> list = new ArrayList<>(3);
-//        for(Integer integer : values) {
-//            if (map.get)
-//        }
-//    }
-
-    private int size;
-    private boolean res = false;
-
-    public boolean isSubPath(ListNode head, TreeNode root) {
-        ListNode cur = head;
-        size = 1;
-        while (cur.next != null) {
-            size++;
-            cur = cur.next;
-        }
-        backTrack(head,root,new LinkedList<>());
-        return res;
-    }
-
-    private void backTrack(ListNode head, TreeNode root, LinkedList<ListNode> track) {
-        if (track.size() == size) {
-            res =  true;
-            return;
-        }
-        if (root == null) {
-            res = true;
-            return;
-        }
-        if (head == null) {
-            return;
-        }
-        if (root.val == head.val) {
-            track.add(head);
-            backTrack(head.next,root.left,track);
-            backTrack(head.next,root.right,track);
-            track.removeLast();
-        }
+        return count;
     }
 
     public static void main(String[] args) {
         Competition competition = new Competition();
-        System.out.println(Arrays.toString(competition.smallerNumbersThanCurrent(new int[]{8, 1, 2, 2, 3})));
-        System.out.println(Arrays.toString(competition.smallerNumbersThanCurrent(new int[]{6,5,4,8})));
-        System.out.println(Arrays.toString(competition.smallerNumbersThanCurrent(new int[]{7,7,7,7})));
+//        System.out.println(competition.numTimesAllBlue(new int[]{4, 1, 2, 3}));
+        System.out.println(competition.numTimesAllBlue(new int[]{2, 1, 3, 5, 4}));
     }
 }
