@@ -30,8 +30,9 @@ public class QuickSort3Ways extends Sort {
             }
         }
         swap(arr, left, lt);
-        quickSort(arr, left, lt);
-        quickSort(arr, gt + 1, right);
+        //注意lt是left，等于v，所以需要-1
+        quickSort(arr, left, lt - 1);
+        quickSort(arr, gt, right);
     }
 
 
