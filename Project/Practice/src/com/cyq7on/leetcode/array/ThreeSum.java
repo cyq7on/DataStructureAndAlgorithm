@@ -28,57 +28,50 @@ import java.util.*;
 public class ThreeSum {
 
     public List<List<Integer>> threeSum(int[] nums) {
-//        Arrays.sort(nums);
         List<List<Integer>> lists = new ArrayList<>();
+        if (nums == null || nums.length < 3) {
+            return lists;
+        }
+        Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            List<Integer> list = twoSum(nums, -nums[i], i);
-            if (list != null && notContainsAll(lists,list)) {
-//                list.add(nums[i]);
-                lists.add(list);
+            // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+            if(nums[i] > 0) {
+                break;
+            }
+            //首项去重，错误写法nums[i] == nums[i + 1]，会漏掉选中nums[i]，nums[i+1]的情况
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    lists.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                } else if (sum < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
             }
         }
         return lists;
     }
 
-    private boolean notContainsAll(List<List<Integer>> lists, List<Integer> list) {
-        for (List<Integer> integerList : lists) {
-            int count = 0;
-            for (Integer integer : list) {
-                if (integerList.contains(integer)) {
-                    count ++;
-                }
-            }
-            if (count == list.size()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private List<Integer> twoSum(int[] nums, int target, int excludeIndex) {
-        Map<Integer, Integer> map = new HashMap<>();
-        List<Integer> ans = new ArrayList<>(2);
-        for (int i = 0; i < nums.length; i++) {
-            if (i == excludeIndex) {
-                continue;
-            }
-            int diff = target - nums[i];
-            if (map.containsKey(diff)) {
-                ans.add(diff);
-                ans.add(nums[i]);
-                ans.add(-target);
-                return ans;
-            }
-            map.put(nums[i], i);
-        }
-        return null;
-    }
 
     public static void main(String[] args) {
         ThreeSum threeSum = new ThreeSum();
-//        List<List<Integer>> lists = threeSum.threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+        List<List<Integer>> lists = threeSum.threeSum(new int[]{-1, 0, 1, 2, -1, -4});
 //        List<List<Integer>> lists = threeSum.threeSum(new int[]{-2,0,1,1,2});
-        List<List<Integer>> lists = threeSum.threeSum(new int[]{-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6});
+//        List<List<Integer>> lists = threeSum.threeSum(new int[]{-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6});
         System.out.println(lists);
     }
 }

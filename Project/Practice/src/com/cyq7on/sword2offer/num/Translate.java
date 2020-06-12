@@ -24,7 +24,20 @@ package com.cyq7on.sword2offer.num;
 * @create 2020/3/6
 **/
 public class Translate {
+
     public int translateNum(int num) {
+        if (num <= 9) {
+            return 1;
+        }
+
+        int i = num % 100;
+        if (i < 10 || i > 25) {
+            return translateNum(num / 10);
+        }
+        return translateNum(num / 10) + translateNum(num / 100);
+    }
+
+    public int translateNum1(int num) {
         String s = String.valueOf(num);
         if (s.length() < 2) {
             return 1;
