@@ -2,6 +2,9 @@ package com.cyq7on.sword2offer.linklist;
 
 import com.cyq7on.leetcode.linklist.ListNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * @description
  * 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
@@ -26,6 +29,20 @@ import com.cyq7on.leetcode.linklist.ListNode;
 **/
 public class ReversePrint {
     public int[] reversePrint(ListNode head) {
-        return null;
+        List<Integer> list = new ArrayList<>();
+
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+
+        int size = list.size();
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = list.get(size - 1 - i);
+        }
+
+        return arr;
     }
+
 }
