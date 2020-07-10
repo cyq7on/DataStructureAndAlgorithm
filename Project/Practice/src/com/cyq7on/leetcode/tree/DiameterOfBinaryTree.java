@@ -34,7 +34,7 @@ public class DiameterOfBinaryTree {
         }
         int left = treeHeight(root.left);
         int right = treeHeight(root.right);
-        int sum = 1 + left + right;
+        int sum = left + right;
         if (diameter < sum) {
             diameter = sum;
         }
