@@ -1,8 +1,7 @@
 package com.cyq7on.sword2offer.linklist;
 
-import java.util.Date;
 
-public class CopyListwithRandomPointer {
+public class CopyListWithRandomPointer {
 
     public Node copyRandomList(Node head) {
         copyNode(head);
@@ -53,7 +52,7 @@ public class CopyListwithRandomPointer {
     }
 
     public static void main(String[] args) {
-        CopyListwithRandomPointer copyListwithRandomPointer = new CopyListwithRandomPointer();
+        CopyListWithRandomPointer copyListwithRandomPointer = new CopyListWithRandomPointer();
         Node node = new Node(new int[]{7, 13, 11, 10, 1});
         System.out.println(copyListwithRandomPointer.copyNode(node));
         System.out.println(copyListwithRandomPointer.getCopyNodes(node));
