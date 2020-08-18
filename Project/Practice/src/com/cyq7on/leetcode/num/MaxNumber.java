@@ -59,18 +59,22 @@ public class MaxNumber {
     }
 
     private boolean bigger(int[] nums1, int[] nums2) {
+        return bigger(nums1, nums2, 0, 0);
+    }
+
+    private boolean bigger(int[] nums1, int[] nums2,int index1,int index2) {
         if (nums2.length == 0) {
             return true;
         }
-        int len = Math.min(nums1.length, nums2.length);
-        for (int i = 0; i < len; i++) {
-            if (nums1[i] > nums2[i]) {
+        int i = 0;
+        while (i + index1 < nums1.length && i + index2 < nums2.length) {
+            if (nums1[i + index1] > nums2[i + index2]) {
                 return true;
-            } else if (nums1[i] < nums2[i]) {
+            } else if (nums1[i + index1] < nums2[i + index2]) {
                 return false;
             }
+            i++;
         }
-
         return nums1.length >= nums2.length;
     }
 
@@ -83,7 +87,11 @@ public class MaxNumber {
             } else if (nums1[i] < nums2[j]){
                 num[k++] = nums2[j++];
             }else {
-                //相等的话得比较后面的
+                if (bigger(nums1,nums2,i + 1,j + 1)) {
+                    num[k++] = nums1[i++];
+                }else {
+                    num[k++] = nums2[j++];
+                }
             }
         }
         while (i < nums1.length) {
