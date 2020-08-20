@@ -21,13 +21,13 @@ public class ConstructBinaryTree {
         if (inLeft > inRight) {
             return null;
         }
+
         TreeNode root = new TreeNode(preorder[preRootIndex]);
-        Integer inRootIndex = inorderMap.get(root.val);
+        int inRootIndex = inorderMap.get(preorder[preRootIndex]);
         root.left = buildTree(preRootIndex + 1, inLeft, inRootIndex - 1);
-        root.right = buildTree(preRootIndex + inRootIndex - inLeft + 1, inRootIndex + 1 ,inRight);
+        root.right = buildTree(preRootIndex + (inRootIndex - inLeft + 1), inRootIndex + 1, inRight);
         return root;
     }
-
 
 
     public static void main(String[] args) {

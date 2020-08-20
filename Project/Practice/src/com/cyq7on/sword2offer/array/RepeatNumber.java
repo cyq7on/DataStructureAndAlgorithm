@@ -29,6 +29,24 @@ import java.util.Map;
 **/
 public class RepeatNumber {
     public int findRepeatNumber(int[] nums) {
+        for (int i = 0;i < nums.length;i++) {
+            int temp;
+            while (nums[i] != i) {
+                if (nums[i] == nums[nums[i]]) {
+                    return nums[i];
+                }
+                temp = nums[i];
+                nums[i] = nums[temp];
+                nums[temp] = temp;
+                //以下错误
+                /*nums[i] = nums[nums[i]];
+                nums[nums[i]] = temp;*/
+            }
+        }
+        return -1;
+    }
+
+    public int findRepeatNumber0(int[] nums) {
         int size = (int) (nums.length / 0.75f);
         Map<Integer,Integer> map = new HashMap<>(size);
         for (int num : nums) {
