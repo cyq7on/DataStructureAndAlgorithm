@@ -8,13 +8,13 @@ import java.util.*;
  * <p>
  * Note:
  * <p>
- * The solution set must not contain duplicate triplets.
+ * The getRes set must not contain duplicate triplets.
  * <p>
  * Example:
  * <p>
  * Given array nums = [-1, 0, 1, 2, -1, -4],
  * <p>
- * A solution set is:
+ * A getRes set is:
  * [
  * [-1, 0, 1],
  * [-1, -1, 2]

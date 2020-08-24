@@ -12,7 +12,7 @@ package com.cyq7on.leetcode.dp;
  * Explanation: [4,-1,2,1] has the largest sum = 6.
  * Follow up:
  * <p>
- * If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+ * If you have figured out the O(n) getRes, try coding another getRes using the divide and conquer approach, which is more subtle.
  * @create 2020/1/2
  **/
 public class MaximumSubarray {

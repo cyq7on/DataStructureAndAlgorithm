@@ -7,18 +7,88 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        int c = scanner.nextInt();
-        float[] weight = new float[n];
-        int[] value = new int[n];
-        for (int i = 0; i < n; i++) {
-            weight[i] = scanner.nextFloat();
-            value[i] = scanner.nextInt();
+        List<String> res = getRes(n);
+        System.out.println(res.size());
+        for (String s : res) {
+            System.out.println(s);
         }
-        System.out.println(knapsack01(weight,value,c));
+    }
+
+    private static List<String> getRes(int n) {
+        List<String> list = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (j == i) {
+                    continue;
+                }
+                for (int k = 0; k < 10; k++) {
+                    if (k == i || k == j) {
+                        continue;
+                    }
+                    if (200 * i + 10 * j + 12 * k == n) {
+                        list.add(String.format("%s%s%s %s%s%S",i,j,k,i,k,k));
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    int[] dx = {-1,0,1,0};
+    int[] dy={0,1,0,-1};
+    // 记忆化搜索
+    public int helper(int x, int y, int[][] dp, int[][] matrix){
+        if(dp[x][y]!=-1) return dp[x][y];
+        dp[x][y] = 1;     // 从这个点开始搜索
+        for(int i=0;i<4;i++){
+            int a = x+dx[i];
+            int b = y+dy[i];
+            if(a>=0 && a<matrix.length &&
+                    b>=0 && b< matrix[0].length &&
+                    matrix[x][y]>matrix[a][b]){
+                dp[x][y] = Math.max(dp[x][y],helper(a,b,dp,matrix)+1);
+            }
+        }
+        return dp[x][y];
+    }
+    public int longestIncreasingPath(int[][] matrix) {
+        if(matrix==null || matrix.length==0) return 0;
+        int [][] dp = new int[matrix.length][matrix[0].length];
+        for(int i=0;i<dp.length;i++){
+            for(int j=0;j<dp[0].length;j++){
+                dp[i][j] = -1;
+            }
+        }
+        int res = 0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                res = Math.max(res,helper(i,j,dp,matrix));
+            }
+        }
+        return res;
     }
 
 
-    public static int getMaxValue(float[] weight, int[] value, int w, int n) {
+    static class Bean {
+        public int band;
+        public int val;
+
+        public Bean(int band, int val) {
+            this.band = band;
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return "Bean{" +
+                    "band=" + band +
+                    ", val=" + val +
+                    '}';
+        }
+    }
+
+
+    public static int getMaxValue(int[] weight, int[] value, int w, int n) {
         int[][] table = new int[n + 1][w + 1];
         for (int i = 1; i <= n; i++) { //物品
             for (int j = 1; j <= w; j++) {  //背包大小
@@ -26,7 +96,7 @@ public class Main {
                     //当前物品i的重量比背包容量j大，装不下，肯定就是不装
                     table[i][j] = table[i - 1][j];
                 } else { //装得下，Max{装物品i， 不装物品i}
-                    table[i][j] = Math.max(table[i - 1][j], table[i - 1][(int) (j - weight[i])] + value[i]);
+                    table[i][j] = Math.max(table[i - 1][j], table[i - 1][j - weight[i]] + value[i]);
                 }
             }
         }
