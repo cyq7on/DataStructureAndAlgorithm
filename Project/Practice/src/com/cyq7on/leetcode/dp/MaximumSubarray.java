@@ -3,7 +3,7 @@ package com.cyq7on.leetcode.dp;
 
 /**
  * @author cyq7on
- * @description Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+ * @description Given an integer array nums, getRes the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
  * <p>
  * Example:
  * <p>
