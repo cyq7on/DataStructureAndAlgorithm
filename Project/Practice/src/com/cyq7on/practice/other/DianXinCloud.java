@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class DianXinCloud {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(scanner.nextInt());
+        System.out.println(nthUglyNumber(scanner.nextInt()));
     }
 
     public static int nthUglyNumber(int n) {
